@@ -1,0 +1,30 @@
+package com.sheng.test;
+import java.sql.SQLException;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+public class testComboPoolDataSource {
+	 
+	public static ComboPooledDataSource cpds;
+	static {
+		//1.初始化C3P0数据源
+		  cpds = new ComboPooledDataSource();
+		// 设置连接数据库需要的配置信息
+		try {
+			cpds.setDriverClass("com.mysql.jdbc.Driver");
+			cpds.setJdbcUrl("jdbc:mysql://192.168.50.195:3306/sheng");
+			cpds.setUser("root");
+			cpds.setPassword("123456");
+			//2.设置连接池的参数
+			cpds.setInitialPoolSize(5);
+			cpds.setMaxPoolSize(15);
+			 
+		} catch (Exception e) {
+			throw new ExceptionInInitializerError(e);
+		}
+	}
+
+	public static void main(String[] args) throws SQLException {
+		//3.获取数据库连接对象
+		System.out.println(cpds.getConnection());
+		System.out.println();
+	}
+}
